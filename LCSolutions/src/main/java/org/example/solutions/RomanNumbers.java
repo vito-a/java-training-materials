@@ -1,4 +1,4 @@
-package org.example;
+package org.example.solutions;
 
 public class RomanNumbers {
     public int romanToInt(String s) {

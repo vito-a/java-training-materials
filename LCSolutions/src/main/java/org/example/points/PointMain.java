@@ -1,4 +1,4 @@
-package org.example;
+package org.example.points;
 
 public class PointMain {
     public PointMain() {

@@ -1,4 +1,6 @@
-package org.example;
+package org.example.points;
+
+import org.example.points.Point2D;
 
 public class Point3D extends Point2D {
     private int z;

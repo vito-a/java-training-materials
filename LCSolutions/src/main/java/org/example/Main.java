@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.solutions.QuadraticEquation;
+
 public class Main {
 
     static int plusMethod(int x, int y) {  return x + y; }

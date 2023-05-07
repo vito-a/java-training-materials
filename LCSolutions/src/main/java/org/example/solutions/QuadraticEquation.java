@@ -1,4 +1,4 @@
-package org.example;
+package org.example.solutions;
 
 public class QuadraticEquation {
     public Roots findRoots(double a, double b, double c) {

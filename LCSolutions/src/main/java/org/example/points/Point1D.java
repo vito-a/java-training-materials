@@ -1,4 +1,4 @@
-package org.example;
+package org.example.points;
 
 public class Point1D {
     private int x;

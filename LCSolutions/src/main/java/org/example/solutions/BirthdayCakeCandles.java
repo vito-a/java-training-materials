@@ -1,4 +1,4 @@
-package org.example;
+package org.example.solutions;
 
 import java.io.*;
 import java.util.*;
