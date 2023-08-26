@@ -33,6 +33,11 @@
             <ModuleSettings />
           </value>
         </entry>
+        <entry key="jmp-dao">
+          <value>
+            <ModuleSettings />
+          </value>
+        </entry>
         <entry key="jmp-dto">
           <value>
             <ModuleSettings />

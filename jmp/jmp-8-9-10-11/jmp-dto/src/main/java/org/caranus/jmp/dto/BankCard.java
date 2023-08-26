@@ -1,6 +1,5 @@
 package org.caranus.jmp.dto;
 
-// BankCard class
 public class BankCard
 {
 	String number;

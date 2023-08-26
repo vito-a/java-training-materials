@@ -8,7 +8,7 @@
   </parent>
 
   <groupId>org.caranus.jmp.cloud.service.api</groupId>
-  <artifactId>jmp-cloud-service-api</artifactId>
+  <artifactId>jmp-service-api</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>jmp-service-api</name>

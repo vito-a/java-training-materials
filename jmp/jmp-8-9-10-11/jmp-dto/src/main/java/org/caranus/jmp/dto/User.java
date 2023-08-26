@@ -2,11 +2,8 @@ package org.caranus.jmp.dto;
 
 import java.time.LocalDate;
 
-
-// User class
 public class User
 {
-
 	Integer id;
 
 	String name;

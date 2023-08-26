@@ -1,6 +1,5 @@
 package org.caranus.jmp.dto;
 
-// CreditBankCard class
 public class CreditBankCard extends BankCard {
     public CreditBankCard(String number, User user)
     {

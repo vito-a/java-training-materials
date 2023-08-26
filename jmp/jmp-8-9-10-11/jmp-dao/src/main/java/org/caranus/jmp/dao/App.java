@@ -1,4 +1,4 @@
-package org.caranus.jmp.dto;
+package org.caranus.jmp.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

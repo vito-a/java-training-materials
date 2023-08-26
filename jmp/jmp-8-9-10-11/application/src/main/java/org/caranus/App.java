@@ -9,6 +9,8 @@ import org.caranus.jmp.bank.api.Bank;
 import org.caranus.jmp.cloud.bank.impl.CloudBankImpl;
 import org.caranus.jmp.cloud.service.exception.IllegalSubscriptionNumberException;
 import org.caranus.jmp.cloud.service.impl.ServiceImpl;
+import org.caranus.jmp.dao.BankDao;
+import org.caranus.jmp.dao.impl.BankDaoImpl;
 import org.caranus.jmp.dto.BankCard;
 import org.caranus.jmp.dto.BankCardType;
 import org.caranus.jmp.dto.CreditBankCard;
@@ -19,17 +21,19 @@ import org.caranus.jmp.service.api.Service;
 
 public class App
 {
-
 	public static void main(String[] args)
 	{
-		// create users
+		BankDao bankDao = new BankDaoImpl();
+		Service service = new ServiceImpl(bankDao);
+
+		// Create users
 		var usersList = List.of(
 			  new User(1, "Sami", "Wolking", LocalDate.of(1979, 5, 10)),
 			  new User(2, "Nick", "Gore", LocalDate.of(1980, 4, 12)),
 			  new User(3, "Sampsa", "Astala", LocalDate.of(1981, 10, 4)),
 			  new User(4, "Leena", "Peisa", LocalDate.of(1981, 10, 4))
 		);
-		ServiceImpl.users.addAll(usersList);
+		service.addUsers(usersList);
 
 		// Add bank cards
 		Bank bank = new CloudBankImpl();
@@ -39,10 +43,9 @@ public class App
 			  bank.createBankCard(usersList.get(2), BankCardType.DEBIT),
 			  bank.createBankCard(usersList.get(3), BankCardType.CREDIT)
 		);
-		ServiceImpl.bankCards.addAll(cardsList);
+		service.addBankCards(cardsList);
 
 		// Add subscriptions
-		Service service = new ServiceImpl();
 		for (BankCard bankCard : cardsList)
 		{
 			if (bankCard instanceof CreditBankCard)

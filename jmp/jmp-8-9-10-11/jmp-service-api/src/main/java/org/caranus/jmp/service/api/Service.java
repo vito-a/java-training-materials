@@ -13,9 +13,13 @@ import org.caranus.jmp.dto.User;
 
 public interface Service
 {
+	boolean addBankCards(List<BankCard> bankCards);
+
 	void subscribe(BankCard bankCard);
 
 	Subscription getSubscriptionByBankCardNumber(String bankCardNumber);
+
+	boolean addUsers(List<User> users);
 
 	List<User> getAllUsers();
 

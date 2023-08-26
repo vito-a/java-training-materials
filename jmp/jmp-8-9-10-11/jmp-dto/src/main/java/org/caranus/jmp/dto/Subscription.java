@@ -3,7 +3,6 @@ package org.caranus.jmp.dto;
 import java.time.LocalDate;
 
 
-// Subscription class
 public class Subscription
 {
 	String bankcard;

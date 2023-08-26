@@ -1,7 +1,6 @@
 package org.caranus.jmp.cloud.service.impl;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,6 +8,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.caranus.jmp.cloud.service.exception.IllegalSubscriptionNumberException;
+import org.caranus.jmp.dao.BankDao;
+import org.caranus.jmp.dao.impl.BankDaoImpl;
 import org.caranus.jmp.dto.BankCard;
 import org.caranus.jmp.dto.Subscription;
 import org.caranus.jmp.dto.User;
@@ -17,15 +18,26 @@ import org.caranus.jmp.service.api.Service;
 
 public class ServiceImpl implements Service
 {
+	BankDao bankDao;
 
-	public static List<User> users = new ArrayList<>();
-	public static List<BankCard> bankCards = new ArrayList<>();
-	public static List<Subscription> subscriptions = new ArrayList<>();
+	public ServiceImpl () {
+		this.bankDao = new BankDaoImpl();
+	}
+
+	public ServiceImpl (BankDao bankDao) {
+		this.bankDao = bankDao;
+	}
+
+	@Override
+	public boolean addBankCards(final List<BankCard> bankCards)
+	{
+		return bankDao.addBankCards(bankCards);
+	}
 
 	@Override
 	public void subscribe(BankCard bankCard)
 	{
-		Optional<BankCard> optionalBankCard = bankCards.parallelStream()
+		Optional<BankCard> optionalBankCard = bankDao.getAllBankCards().parallelStream()
 			  .filter(Objects::nonNull)
 			  .filter(bc -> bc.getNumber().equals(bankCard.getNumber()))
 			  .findFirst();
@@ -35,29 +47,35 @@ public class ServiceImpl implements Service
 		}
 		else
 		{
-			subscriptions.add(new Subscription(bankCard.getNumber(), LocalDate.now()));
+			bankDao.addSubscription(new Subscription(bankCard.getNumber(), LocalDate.now()));
 		}
 	}
 
 	@Override
 	public Subscription getSubscriptionByBankCardNumber(String cardNumber)
 	{
-		return subscriptions.parallelStream()
+		return bankDao.getAllSubscriptions().parallelStream()
 			  .filter(s -> s.getBankcard().equals(cardNumber))
 			  .findFirst()
 			  .orElseThrow(() -> new IllegalSubscriptionNumberException("With " + cardNumber + " card number subscription not found"));
 	}
 
 	@Override
+	public boolean addUsers(final List<User> users)
+	{
+		return bankDao.addUsers(users);
+	}
+
+	@Override
 	public List<User> getAllUsers()
 	{
-		return users;
+		return bankDao.getAllUsers();
 	}
 
 	@Override
 	public List<Subscription> getAllSubscriptionByCondition(Predicate<Subscription> predicate)
 	{
-		return subscriptions.stream().
+		return bankDao.getAllSubscriptions().stream().
 			  filter(predicate).
 			  collect(Collectors.toUnmodifiableList());
 	}

@@ -1,7 +1,5 @@
 package org.caranus.jmp.cloud.service.repository;
 
-import org.caranus.jmp.dto.Subscription;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
