@@ -29,10 +29,12 @@ class GuavaCacheImplTest
         for (int i = 0; i < 50; i++) {
             guavaCacheImpl.put(i, new Element(String.valueOf(i)));
         }
+
         for (int i = 0; i < 10; i++) {
             guavaCacheImpl.get(i);
         }
-        for (int i = 60; i < 70; i++) {
+
+        for (int i = 50; i < 90; i++) {
             guavaCacheImpl.put(i, new Element(String.valueOf(i)));
         }
 

@@ -3,6 +3,7 @@ package org.caranus.genericcache;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -103,9 +104,26 @@ public class GenericCacheImpl<K, V> implements GenericCache<K, V> {
 		LocalDateTime getCreatedAt();
 	}
 
+	public Integer getSize() {
+		return this.cacheSize;
+	}
+
+	public HashMap<K, V> asMap() {
+		HashMap<K, V> allMap = new HashMap<>();
+		this.cacheMap.forEach((k, v) -> allMap.put(k, v.getValue()));
+		return allMap;
+	}
+
 	public void showStatistics() {
-		logger.info("Number of cached elements: " + cacheMap.size());
+		logger.info("Number of cached elements: " + this.getSize());
 		logger.info("Number of evictions: " + cacheEvictions);
+		logger.info("----------------------------------------------");
+	}
+
+	public void showCache() {
+		logger.info("----------------------------------------------");
+		StringBuilder sb = new StringBuilder();
+		logger.info("Cached elements: " + Arrays.toString(this.asMap().entrySet().toArray()));
 		logger.info("----------------------------------------------");
 	}
 }
