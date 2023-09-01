@@ -11,10 +11,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 
+import org.caranus.genericcache.ConcurrentGenericCacheImpl;
 import org.caranus.genericcache.GenericCacheImpl;
 
 
-public class GuavaCacheImpl<K, V> extends GenericCacheImpl<K, V>
+public class GuavaCacheImpl<K, V> extends ConcurrentGenericCacheImpl<K, V>
 {
 
     private final Cache<K, CacheValue<V>> guavaCache;
@@ -23,7 +24,7 @@ public class GuavaCacheImpl<K, V> extends GenericCacheImpl<K, V>
         super(cacheSize);
         guavaCache = CacheBuilder.newBuilder()
               .maximumSize(cacheSize)
-              .concurrencyLevel(1)
+//              .concurrencyLevel(1)
               .recordStats()
               .removalListener(new RemovalListener<K, CacheValue<V>>() {
                   @Override
@@ -39,7 +40,7 @@ public class GuavaCacheImpl<K, V> extends GenericCacheImpl<K, V>
         super(cacheSize, cacheTimeout);
         guavaCache = CacheBuilder.newBuilder()
               .maximumSize(cacheSize)
-              .concurrencyLevel(1)
+//              .concurrencyLevel(1)
               .recordStats()
               .removalListener(new RemovalListener<K, CacheValue<V>>() {
                   @Override
@@ -62,7 +63,15 @@ public class GuavaCacheImpl<K, V> extends GenericCacheImpl<K, V>
 
     @Override
     public void put(K key, V value) {
+        long startTime = System.nanoTime();
+
         guavaCache.put(key, createCacheValue(value));
+
+        long endTime = System.nanoTime();
+        long putTime = endTime - startTime;
+
+        totalPutTime += putTime;
+        putCount++;
     }
 
     @Override
@@ -75,7 +84,8 @@ public class GuavaCacheImpl<K, V> extends GenericCacheImpl<K, V>
     public void showStatistics() {
         logger.info("Number of cached elements: " + guavaCache.size());
         logger.info("Number of evictions: " + cacheEvictions);
-
+        logger.info("Average put time: " + String.format("%.8f", (double) this.getAveragePutTime() / 1_000_000_000) + " seconds.");
+        logger.info("----------------------------------------------");
         logger.info("Cache hit rate: " + guavaCache.stats().hitRate());
         logger.info("Cache miss rate: " + guavaCache.stats().missRate());
         logger.info("Cache evictions count: " + guavaCache.stats().evictionCount());

@@ -7,9 +7,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import org.caranus.genericcache.ConcurrentGenericCacheImpl;
 import org.caranus.genericcache.GenericCacheImpl;
 
-public class JavaLFUCacheImpl<K,V> extends GenericCacheImpl<K,V>
+public class JavaLFUCacheImpl<K,V> extends ConcurrentGenericCacheImpl<K,V>
 {
     // Keys count map
     private Map<K, Integer> countMap = new HashMap<>();

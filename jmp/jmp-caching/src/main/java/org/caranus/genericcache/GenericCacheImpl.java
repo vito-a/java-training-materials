@@ -18,6 +18,8 @@ public class GenericCacheImpl<K, V> implements GenericCache<K, V> {
 	protected Map<K, CacheValue<V>> cacheMap;
 	protected Long cacheTimeout;
 	protected BigInteger cacheEvictions = BigInteger.ZERO;
+	protected long totalPutTime = 0L;
+	protected long putCount = 0L;
 	protected Integer cacheSize;
 
 	protected Logger logger = Logger.getLogger(GenericCacheImpl.class.getName());
@@ -74,7 +76,22 @@ public class GenericCacheImpl<K, V> implements GenericCache<K, V> {
 
 	@Override
 	public void put(K key, V value) {
+		long startTime = System.nanoTime();
+
 		this.cacheMap.put(key, this.createCacheValue(value));
+
+		long endTime = System.nanoTime();
+		long putTime = endTime - startTime;
+
+		totalPutTime += putTime;
+		putCount++;
+	}
+
+	public long getAveragePutTime() {
+		if (putCount == 0) {
+			return 0;
+		}
+		return totalPutTime / putCount;
 	}
 
 	protected CacheValue<V> createCacheValue(V value) {
@@ -117,6 +134,7 @@ public class GenericCacheImpl<K, V> implements GenericCache<K, V> {
 	public void showStatistics() {
 		logger.info("Number of cached elements: " + this.getSize());
 		logger.info("Number of evictions: " + cacheEvictions);
+		logger.info("Average put time: " + String.format("%.8f", (double) this.getAveragePutTime() / 1_000_000_000) + " seconds.");
 		logger.info("----------------------------------------------");
 	}
 
