@@ -1,13 +1,13 @@
-package org.caranus;
+package org.caranus.cache;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import org.caranus.genericcache.ConcurrentGenericCacheImpl;
-import org.caranus.lfu.JavaLFUCacheImpl;
-import org.caranus.lru.GuavaCacheImpl;
+import org.caranus.cache.generic.ConcurrentGenericCacheImpl;
+import org.caranus.cache.lfu.JavaLFUCacheImpl;
+import org.caranus.cache.lru.GuavaCacheImpl;
 
 
 public class App

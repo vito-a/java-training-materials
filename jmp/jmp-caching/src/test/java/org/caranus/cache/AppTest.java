@@ -1,4 +1,4 @@
-package org.caranus;
+package org.caranus.cache;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

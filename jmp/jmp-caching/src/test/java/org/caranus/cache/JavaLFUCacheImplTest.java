@@ -1,6 +1,7 @@
-package org.caranus;
+package org.caranus.cache;
 
-import org.caranus.lfu.JavaLFUCacheImpl;
+import org.caranus.cache.Element;
+import org.caranus.cache.lfu.JavaLFUCacheImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

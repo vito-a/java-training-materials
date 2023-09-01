@@ -1,4 +1,4 @@
-package org.caranus.lfu;
+package org.caranus.cache.lfu;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import org.caranus.genericcache.ConcurrentGenericCacheImpl;
-import org.caranus.genericcache.GenericCacheImpl;
+import org.caranus.cache.generic.ConcurrentGenericCacheImpl;
 
 public class JavaLFUCacheImpl<K,V> extends ConcurrentGenericCacheImpl<K,V>
 {

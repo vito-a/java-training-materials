@@ -1,18 +1,15 @@
-package org.caranus.lru;
+package org.caranus.cache.lru;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Optional;
+
+import org.caranus.cache.generic.ConcurrentGenericCacheImpl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
-
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentMap;
-
-import org.caranus.genericcache.ConcurrentGenericCacheImpl;
-import org.caranus.genericcache.GenericCacheImpl;
 
 
 public class GuavaCacheImpl<K, V> extends ConcurrentGenericCacheImpl<K, V>

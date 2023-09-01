@@ -1,4 +1,4 @@
-package org.caranus;
+package org.caranus.cache;
 
 public class Element {
 

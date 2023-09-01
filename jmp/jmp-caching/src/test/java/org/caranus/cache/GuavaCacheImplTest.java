@@ -1,11 +1,10 @@
-package org.caranus;
+package org.caranus.cache;
 
 import java.util.Optional;
 import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Logger;
 
-import org.caranus.genericcache.ConcurrentGenericCacheImpl;
-import org.caranus.lru.GuavaCacheImpl;
+import org.caranus.cache.lru.GuavaCacheImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

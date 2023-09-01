@@ -1,7 +1,5 @@
-package org.caranus.genericcache;
+package org.caranus.cache.generic;
 
-import java.math.BigInteger;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 

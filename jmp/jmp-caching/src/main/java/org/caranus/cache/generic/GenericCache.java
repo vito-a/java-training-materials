@@ -1,4 +1,4 @@
-package org.caranus.genericcache;
+package org.caranus.cache.generic;
 import java.util.Optional;
 
 public interface GenericCache<K, V> {
