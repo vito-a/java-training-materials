@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.caranus.sort.InsertionSort;
 
 public class GenericSearchImpl<K extends GenericElement<V>, V> implements GenericSearch<K, V>
 {
@@ -17,12 +18,22 @@ public class GenericSearchImpl<K extends GenericElement<V>, V> implements Generi
 
 	protected boolean ascendingOrder;
 
+	protected boolean shouldSortBeforeSearch;
+
 	protected Logger logger = Logger.getLogger(GenericSearchImpl.class.getName());
 
 	public GenericSearchImpl(ElementToGet elementToGet)
 	{
 		this.elementToGet = elementToGet;
 		this.ascendingOrder = true;
+		this.shouldSortBeforeSearch = true;
+	}
+
+	public GenericSearchImpl(ElementToGet elementToGet, boolean shouldSortBeforeSearch)
+	{
+		this.elementToGet = elementToGet;
+		this.ascendingOrder = true;
+		this.shouldSortBeforeSearch = shouldSortBeforeSearch;
 	}
 
 	private <T> int getObjectIndexFromList(List<T> list, Predicate<T> predicate){
@@ -43,6 +54,13 @@ public class GenericSearchImpl<K extends GenericElement<V>, V> implements Generi
 		if (elementList.size() == 0)
 		{
 			return -1;
+		}
+
+		if (this.shouldSortBeforeSearch) {
+			// Sort the list using the desired sorting algorithm (e.g., mergeSort)
+			GenericElementComparator comparator = new GenericElementComparator<>();
+			// MergeSort.sort(elementList, comparator);
+			InsertionSort.sort(elementList, comparator);
 		}
 
 		this.ascendingOrder = (element.compareTo(elementList.get(elementList.size() - 1)) < 0);
