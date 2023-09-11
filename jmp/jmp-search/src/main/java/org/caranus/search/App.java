@@ -37,16 +37,20 @@ public class App
 		elementList2.add(new Element<>(9));
 		elementList2.add(new Element<>(100));
 
+		System.out.println("genericSearchImpl:");
 		System.out.println(genericSearchImpl.search(new Element<>(7), elementList1));
 		System.out.println(genericSearchImpl.search(new Element<>(8), elementList2));
 
+		System.out.println("iterativeBinarySearchImpl:");
 		System.out.println(iterativeBinarySearchImpl.search(new Element<>(7), elementList1));
 		System.out.println(iterativeBinarySearchImpl.search(new Element<>(8), elementList2));
 
+		System.out.println("recursiveBinarySearchImpl:");
 		System.out.println(recursiveBinarySearchImpl.search(new Element<>(7), elementList1));
 		System.out.println(recursiveBinarySearchImpl.search(new Element<>(8), elementList2));
 
 		// Create a sample binary tree
+		System.out.println("BinaryTreeTraversal:");
 		TreeNode<Integer> root = new TreeNode<>(1);
 		root.setLeft(new TreeNode<Integer>(2));
 		root.setRight(new TreeNode<>(3));
