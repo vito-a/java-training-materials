@@ -1,8 +1,19 @@
 package org.example;
 
-import org.example.solutions.QuadraticEquation;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Base64;
+
 
 public class Main {
+
+    @FunctionalInterface
+    interface Calculator {
+        int calculate(int x, int y);
+    }
 
     static int plusMethod(int x, int y) {  return x + y; }
 
@@ -96,7 +107,42 @@ public class Main {
             throw new RuntimeException(e);
         }
         */
+
+        /*
         QuadraticEquation quadraticEquation = new QuadraticEquation();
         quadraticEquation.ListSolution();
+        */
+
+        LocalDateTime ldt = LocalDateTime.of(2004,7,14,4,23);
+        ldt = ldt.minusHours(2);
+        ldt = ldt.withMonth(4);
+        ldt = ldt.plus(Period.ofWeeks(2));
+        System.out.println(ldt);
+
+
+        // ZonedDateTime zdt = ldt.toZonedDateTime(ZoneId.of("Asia/Kuala_Lumpur")); // Incorrect
+        // ZonedDateTime zdt = new ZonedDateTime(ldt, ZoneId.of("Asia/Kuala_Lumpur")); // Incorrect
+        ZonedDateTime zdt = ldt.atZone(ZoneId.of("Asia/Kuala_Lumpur")); // Incorrect
+        // LocalDateTime zdt = LocalDateTime.of(ldt, ZoneId.of("Asia/Kuala_Lumpur")); // Incorrect
+
+
+        Clock clock1 = Clock.systemDefaultZone();
+        // Clock clock2 = Clock.instant();
+        // Clock clock3 = new Clock(); // Incorrect
+        Clock clock4 = Clock.systemUTC();
+
+        String encoded = "V2VsbCBkb25lIQ==";
+        // String decoded1 = new String(Base64.getEncoder().decode(encoded)); // Incorrect
+        // String decoded2 = Base64.getDecoder().decode(encoded); // Incorrect
+        // String decoded3 = new String(Base64.getDecoder().toString(encoded)); // Incorrect
+        String decoded4 = new String(Base64.getDecoder().decode(encoded));
+        System.out.println(decoded4);
+
+        // final int x = 2;
+        // final int w = 12; Calculator z = (x, w) → x * y; // Incorrect
+        // int y = 12; y = 10; Calculator z = (x, w) -> x* y; // Incorrect
+        // final int z = 12; Calculator z = (x, w) -> x * y; // Incorrect
+        int y = 12; Calculator z = (x, w) -> x * y;
+        System.out.println("z = " + z.calculate(3, 4));
     }
 }
