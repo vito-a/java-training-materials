@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.caranus.eventticket.App;
+import org.caranus.eventticket.dao.MapStorage;
+import org.caranus.eventticket.dao.StorageDao;
 import org.caranus.eventticket.model.AbstractModel;
 import org.caranus.eventticket.model.Event;
 import org.caranus.eventticket.model.Ticket;
@@ -65,37 +67,17 @@ public class BookingFacadeTest
 	@Test
 	public void testBooking()
 	{
-		User user = bookingFacade.createUser(new UserImpl(11L, "Test user 1", "test1@example.com"));
-		Event event = bookingFacade.createEvent(new EventImpl(22L, "Test event 1"));
-		bookingFacade.createUser(user);
-		bookingFacade.createEvent(event);
-		Ticket ticket = bookingFacade.bookTicket(user.getId(), event.getId(), 10, Ticket.Category.VIP);
-		Gson gson = new Gson();
-		Type typeObject = new TypeToken<HashMap>()
-		{
-		}.getType();
-		Map<String, AbstractModel> storageDao = bookingFacade.getStorageDao();
-		String gsonData = gson.toJson(storageDao, typeObject);
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(".").getFile() + "/test.json");
-		try
-		{
-			if (file.createNewFile())
-			{
-				System.out.println("File is created!");
-			}
-			else
-			{
-				System.out.println("File already exists.");
-			}
-			FileWriter writer = new FileWriter(file);
-			writer.write(gsonData);
-			writer.close();
-		}
-		catch (IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		Assert.notNull(file, "file is not null");
+		User user1 = bookingFacade.createUser(new UserImpl(11L, "Test user 1", "test1@example.com"));
+		Event event1 = bookingFacade.createEvent(new EventImpl(22L, "Test event 1"));
+		User user2 = bookingFacade.createUser(new UserImpl(33L, "Test user 2", "test2@example.com"));
+		Event event2 = bookingFacade.createEvent(new EventImpl(44L, "Test event 2"));
+		bookingFacade.createUser(user1);
+		bookingFacade.createEvent(event1);
+		Ticket ticket1 = bookingFacade.bookTicket(user1.getId(), event1.getId(), 10, Ticket.Category.VIP);
+		bookingFacade.createUser(user2);
+		bookingFacade.createEvent(event2);
+		Ticket ticket2 = bookingFacade.bookTicket(user2.getId(), event2.getId(), 100, Ticket.Category.STANDARD);
+		Assert.notNull(ticket1, "ticket 1 is not null");
+		Assert.notNull(ticket2, "ticket 2 is not null");
 	}
 }

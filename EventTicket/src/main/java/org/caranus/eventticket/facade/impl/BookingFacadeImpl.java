@@ -2,11 +2,9 @@ package org.caranus.eventticket.facade.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.caranus.eventticket.facade.BookingFacade;
-import org.caranus.eventticket.model.AbstractModel;
 import org.caranus.eventticket.model.Event;
 import org.caranus.eventticket.model.Ticket;
 import org.caranus.eventticket.model.User;
@@ -123,9 +121,5 @@ public class BookingFacadeImpl implements BookingFacade
 
     private Ticket map(TicketImpl ticket) {
         return ticket;
-    }
-
-    public Map<String, AbstractModel> getStorageDao () {
-        return this.ticketService.getTicketDao().getStorage();
     }
 }

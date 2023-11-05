@@ -9,9 +9,12 @@ import org.springframework.stereotype.Component;
 public class MapStorage {
     private final StorageDao dao;
 
+    private Map<String, Map<String, AbstractModel>> storageMap;
+
     private MapStorage(final StorageDao dao)
     {
         this.dao = dao;
+        this.storageMap = dao.getStorageMap();
     }
 
     public Map<String, AbstractModel> getStorage(String prefix)

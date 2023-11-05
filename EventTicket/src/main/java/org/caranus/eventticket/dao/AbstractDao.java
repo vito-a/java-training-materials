@@ -16,16 +16,23 @@ public abstract class AbstractDao<T extends AbstractModel> {
 
     private final Map<String, AbstractModel> storage;
 
+    Map<String, Map<String, AbstractModel>> storageMap;
+
+    private final StorageDao storageDao;
+
     protected String prefix;
 
     protected AbstractDao(MapStorage mapStorage, Class<T> type) {
         this.prefix = getPrefix();
+        this.storageDao = mapStorage.getStorageDAO();
+        this.storageMap = this.storageDao.getStorageMap();
         this.storage = mapStorage.getStorage(this.prefix);
         this.type = type;
     }
 
     public void save(T model) {
         storage.put(prefix + model.getId(), model);
+        storageDao.saveStorage(this.storageMap);
 
         logger.info("Saved entity: {}", model);
     }
@@ -36,6 +43,7 @@ public abstract class AbstractDao<T extends AbstractModel> {
 
             return newEvent;
         }
+        storageDao.saveStorage(storageMap);
         logger.error("Failed to update event: {}.", oldEvent);
 
         return null;
@@ -59,9 +67,9 @@ public abstract class AbstractDao<T extends AbstractModel> {
     }
 
     public void delete(long id) {
-        logger.error("Deleted item: {}{}", prefix, id);
-
         storage.remove(prefix + id);
+        storageDao.saveStorage(this.storageMap);
+        logger.error("Deleted item: {}{}", prefix, id);
     }
 
     public abstract T map(Object o);

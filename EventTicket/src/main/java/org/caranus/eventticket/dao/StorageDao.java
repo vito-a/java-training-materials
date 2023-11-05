@@ -13,15 +13,21 @@ import org.caranus.eventticket.model.User;
  */
 public interface StorageDao
 {
-	public void addItem(String type, String itemId, AbstractModel item);
+	void addItem(String type, String itemId, AbstractModel item);
 
-	public AbstractModel getItemById(String type, String itemId);
+	AbstractModel getItemById(String type, String itemId);
 
-	public Map<String, AbstractModel> getAllItemsByType(String type);
+	Map<String, AbstractModel> getAllItemsByType(String type);
 
-	public Event getEventById(String eventId);
+	Event getEventById(String eventId);
 
-	public Ticket getTicketById(String ticketId);
+	Ticket getTicketById(String ticketId);
 
-	public User getUserById(String userId);
+	User getUserById(String userId);
+
+	void loadStorage();
+
+	int saveStorage(Map<String, Map<String, AbstractModel>> storageMap);
+
+	Map<String, Map<String, AbstractModel>> getStorageMap();
 }
